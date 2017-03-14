@@ -71,11 +71,6 @@ task 'sitemap:update', [:filename] do |t, args|
   Mongoid.load!("config/mongoid.yml", ENV['RAILS_ENV'])
   puts "Connected to #{ENV['RAILS_ENV']}."
 
-  h = Hash[sitemap.map do |line|
-    image_dest = line[:image_loc].split('/')[0..-2].join('/') + '/' + line[:slug] + '.jpg'
-    [line[:slug], image_dest]
-  end]
-
   sitemap.each do |line|
     slug = line[:slug]
     image_dest = line[:image_loc].split('/')[0..-2].join('/') + '/' + line[:slug] + '.jpg'
