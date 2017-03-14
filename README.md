@@ -21,3 +21,7 @@ This copies files from their generic name (eg. `u56wVaBVFOMFQrtf1tGOhw/larger.jp
 ```
 AWS_ID=... AWS_SECRET=... rake ow:config:from_env[production] sitemap:update[sitemaps/sitemap-images-1-2016-02-01/sitemap-images-1-2016-02-01.xml]
 ```
+
+#### Render Slugged URLs
+
+In [force#1006](https://github.com/artsy/force/pull/1006) we prefer slugged images on www.artsy.net.
