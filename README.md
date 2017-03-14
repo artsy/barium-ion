@@ -4,17 +4,13 @@ A controlled experiment for Google Image Search. [Barium ion is the smallest par
 
 ### Rename Image Files for a Single Sitemap
 
-We experiment with [sitemap-images-1-2016-02-01.xml](https://www.artsy.net/sitemap-images-1-2016-02-01.xml). Beginning indexing state 160/4996 images indexed.
+We experiment with [sitemap-images-1-2016-02-01.xml](https://www.artsy.net/sitemap-images-1-2016-02-01.xml). Beginning indexing state [160/4996 images indexed](https://www.google.com/webmasters/tools/sitemap-details?hl=en&siteUrl=https%3A%2F%2Fwww.artsy.net%2F&sitemapUrl=https%3A%2F%2Fwww.artsy.net%2Fsitemap-images-1-2016-02-01.xml). There're 4257/4996 published artworks in this sitemap.
 
 ![](sitemaps/sitemap-images-1-2016-02-01/2017-03-13.png)
 
-There're 4257/4996 published artworks in this sitemap.
-
-The control group is [sitemap-images-1-2016-04-01.xml](https://www.artsy.net/sitemap-images-1-2016-04-01.xml)
+The control group is [sitemap-images-1-2016-04-01.xml](https://www.artsy.net/sitemap-images-1-2016-04-01.xml). Beginning indexing state [157/5000 images indexed](https://www.google.com/webmasters/tools/sitemap-details?hl=en&siteUrl=https%3A%2F%2Fwww.artsy.net%2F&sitemapUrl=https%3A%2F%2Fwww.artsy.net%2Fsitemap-images-1-2016-04-01.xml). There're 4300/5000 published artworks in this sitemap.
 
 ![](sitemaps/sitemap-images-1-2016-04-01/2017-03-13.png)
-
-There're 4300/5000 published artworks in this sitemap.
 
 #### Get Published Artwork Info
 
@@ -50,3 +46,8 @@ Get the `reflection:artworks:invalidate` Rake task from [github.com/dblock/gravi
 RAILS_ENV=production rake ow:config:from_env reflection:artworks:invalidate[../sitemap-images-1-2016-02-01-update.json]
 ```
 
+Update sitemaps in [fusion](https://github.com/artsy/fusion). This fetches everything from Gravity in increments.
+
+```
+heroku run npm run scrape --app=fusion-production
+```
