@@ -76,12 +76,15 @@ task 'sitemap:update', [:filename] do |t, args|
     [line[:slug], image_dest]
   end]
 
-  h.each_pair do |slug, url|
+  sitemap.each do |line|
+    slug = line[:slug]
+    image_dest = line[:image_loc].split('/')[0..-2].join('/') + '/' + line[:slug] + '.jpg'
+    image_version = line[:image_loc].split('/')[-1].split('.').first
     artwork = Artwork.where(_slugs: slug).first
     default_image = artwork.default_image
     if default_image
-      puts "#{artwork.id} (#{default_image.id}): #{url}"
-      default_image.set('image_urls.slugged' => url)
+      puts "#{artwork.id} (#{default_image.id}): setting '#{image_version}' to #{image_dest}"
+      default_image.set("image_urls.#{image_version}" => image_dest)
     else
       puts "MISSING: #{artwork.id}"
     end

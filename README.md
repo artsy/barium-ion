@@ -20,11 +20,13 @@ AWS_ID=... AWS_SECRET=... rake sitemap:copy[sitemaps/sitemap-images-1-2016-02-01
 
 This copies files from their generic name (eg. `u56wVaBVFOMFQrtf1tGOhw/larger.jpg`) to their sluggled name (eg. `u56wVaBVFOMFQrtf1tGOhw/christian-de-laubadere-lu-mi-the-murmur-of-pines-number-7.jpg`).
 
-#### Add Slugged URLs
+#### Set Slugged URLs
 
 ```
 AWS_ID=... AWS_SECRET=... rake ow:config:from_env[production] sitemap:update[sitemaps/sitemap-images-1-2016-02-01/sitemap-images-1-2016-02-01.xml]
 ```
+
+This replaces the URL for either `larger` or `large` versions (depending on the value in the sitemap) to the slugged JPG.
 
 #### Render Slugged URLs
 
