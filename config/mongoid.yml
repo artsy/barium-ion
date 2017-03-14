@@ -1,0 +1,89 @@
+development:
+  clients:
+    default:
+      database: gravity_development
+      hosts:
+        - <%= ENV['MONGO_HOST'] || 'localhost' %>
+    imports:
+      database: gravity_development_imports
+      hosts:
+        - <%= ENV['MONGO_HOST'] || 'localhost' %>
+  options:
+    raise_not_found_error: false
+    use_utc: true
+
+test:
+  clients:
+    default:
+      database: gravity_test
+      hosts:
+        - <%= ENV['MONGO_HOST'] || 'localhost' %>
+    imports:
+      database: gravity_test_imports
+      hosts:
+        - <%= ENV['MONGO_HOST'] || 'localhost' %>
+  options:
+    raise_not_found_error: false
+    use_utc: true
+
+staging:
+  clients:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        read:
+          mode: :<%= ENV['MONGODB_READ_MODE'] || (!$rails_rake_task ? 'secondary_preferred' : 'primary') %>
+        <% if ENV['MONGODB_CONNECT'] %>
+        connect: :<%= ENV['MONGODB_CONNECT'] %>
+        <% end %>
+        socket_timeout: <%= (ENV['MONGODB_SOCKET_TIMEOUT'] || 5).to_i %>
+    imports:
+      uri: <%= ENV['MONGOHQ_IMPORTS_URL'] %>
+      options:
+        read:
+          mode: :<%= ENV['MONGODB_READ_MODE'] || (!$rails_rake_task ? 'secondary_preferred' : 'primary') %>
+  options:
+    raise_not_found_error: false
+    use_utc: true
+
+production:
+  clients:
+    default:
+      <% if ENV['MONGOHQ_HOST_LIST'] %>
+      database: <%= ENV['MONGOHQ_DATABASE'] %>
+      hosts:
+      <% eval(ENV['MONGOHQ_HOST_LIST']).each do |host_and_port| %>
+        - <%= host_and_port.join(':') %>
+      <% end %>
+      <% elsif ENV['MONGOHQ_URL'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      <% end %>
+      options:
+        user: <%= ENV['MONGOHQ_USER'] %>
+        password: <%= ENV['MONGOHQ_PASSWD'] %>
+        read:
+          mode: :<%= ENV['MONGODB_READ_MODE'] || (!$rails_rake_task ? 'secondary_preferred' : 'primary') %>
+        <% if ENV['MONGODB_CONNECT'] %>
+        connect: :<%= ENV['MONGODB_CONNECT'] %>
+        <% end %>
+        min_pool_size: <%= (ENV['MONGODB_MIN_POOL_SIZE'] || 1).to_i %>
+        max_pool_size: <%= (ENV['MONGODB_MAX_POOL_SIZE'] || 5).to_i %>
+        socket_timeout: <%= (ENV['MONGODB_SOCKET_TIMEOUT'] || 5).to_i %>
+    imports:
+      <% if ENV['MONGOHQ_IMPORTS_HOST_LIST'] %>
+      database: <%= ENV['MONGOHQ_IMPORTS_DATABASE'] %>
+      hosts:
+      <% eval(ENV['MONGOHQ_IMPORTS_HOST_LIST']).each do |host_and_port| %>
+        - <%= host_and_port.join(':') %>
+      <% end %>
+      <% elsif ENV['MONGOHQ_IMPORTS_URL'] %>
+      uri: <%= ENV['MONGOHQ_IMPORTS_URL'] %>
+      <% end %>
+      options:
+        user: <%= ENV['MONGOHQ_IMPORTS_USER'] %>
+        password: <%= ENV['MONGOHQ_IMPORTS_PASSWD'] %>
+        read:
+          mode: :<%= ENV['MONGODB_READ_MODE'] || (!$rails_rake_task ? 'secondary_preferred' : 'primary') %>
+  options:
+    raise_not_found_error: false
+    use_utc: true
