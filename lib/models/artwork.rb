@@ -2,6 +2,7 @@ class Artwork
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  field :published
   field :default_image_id
   embeds_many :additional_images
 
