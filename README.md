@@ -40,3 +40,13 @@ AWS_ID=... AWS_SECRET=... rake ow:config:from_env[production] sitemap:update[sit
 
 This replaces the URL for either `larger` or `large` versions (depending on the value in the sitemap) to the slugged JPG.
 
+#### Invalidate Caches
+
+Gravity caches are invalidated by hand by copy-pasting IDs into the console.
+
+Get the `reflection:artworks:invalidate` Rake task from [github.com/dblock/gravity#barium-ion-reflection-invalidate](https://github.com/dblock/gravity/tree/barium-ion-reflection-invalidate). Run the invalidate task using an output file.
+
+```
+RAILS_ENV=production rake ow:config:from_env reflection:artworks:invalidate[../sitemap-images-1-2016-02-01-update.json]
+```
+
