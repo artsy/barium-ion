@@ -8,6 +8,10 @@ We experiment with [sitemap-images-1-2016-02-01.xml](https://www.artsy.net/sitem
 
 ![](sitemaps/sitemap-images-1-2016-02-01/2017-03-13.png)
 
+The control group is [sitemap-images-1-2016-04-01.xml](https://www.artsy.net/sitemap-images-1-2016-04-01.xml)
+
+![](sitemaps/sitemap-images-1-2016-04-01/2017-03-13.png)
+
 #### Generate Slugged Files
 
 ```
